@@ -860,7 +860,7 @@ Update `Books.razor` with the following content:
                            Variant="Variant.Outlined"
                            Disabled="!HasCreatePermission"
                            OnClick="OpenCreateModalAsync">
-                    @L["NewAuthor"]
+                    @L["NewBook"]
                 </MudButton>
             </MudItem>
         </MudGrid>
@@ -884,7 +884,7 @@ Update `Books.razor` with the following content:
                         @if (HasDeletePermission)
                         {   
                             <MudIconButton Icon="fas fa-trash" 
-                                           OnClick="@(async (e) => {await DeleteEntityAsync(context);})"
+                                           OnClick="@(async (_) => { await DeleteEntityAsync(context);} )"
                                            Size="MudBlazor.Size.Small" />
                         }
                     </CellTemplate>
@@ -928,7 +928,7 @@ Update `Books.razor` with the following content:
                  @ref="CreateForm">
             <MudSelect T="Guid" @bind-Value="NewEntity.AuthorId">
                 <MudSelectItem Value="@Guid.Empty">
-                    -
+                    @L["PickAnAuthor"]
                 </MudSelectItem>
                 @foreach (var author in authorList)
                 {
@@ -946,7 +946,7 @@ Update `Books.razor` with the following content:
                 @foreach (BookType bookTypeValue in Enum.GetValues(typeof(BookType)))
                 {
                     <MudSelectItem Value="@bookTypeValue">
-                        @L[$"Enum:BookType:{bookTypeValue}"]
+                        @L[$"Enum:BookType:{(int)bookTypeValue}"]
                     </MudSelectItem>
                 }
             </MudSelect>
@@ -987,7 +987,7 @@ Update `Books.razor` with the following content:
                  @ref="EditForm">
             <MudSelect T="Guid" @bind-Value="EditingEntity.AuthorId">
                 <MudSelectItem Value="@Guid.Empty">
-                    -
+                    @L["PickAnAuthor"]
                 </MudSelectItem>
                 @foreach (var author in authorList)
                 {
@@ -1005,7 +1005,7 @@ Update `Books.razor` with the following content:
                 @foreach (BookType bookTypeValue in Enum.GetValues(typeof(BookType)))
                 {
                     <MudSelectItem Value="@bookTypeValue">
-                        @L[$"Enum:BookType:{bookTypeValue}"]
+                        @L[$"Enum:BookType:{(int)bookTypeValue}"]
                     </MudSelectItem>
                 }
             </MudSelect>
@@ -1043,6 +1043,8 @@ Update `Books.razor` with the following content:
 
     public Books() // Constructor
     {
+        LocalizationResource = typeof(BookStoreResource);
+
         CreatePolicyName = BookStorePermissions.Books.Create;
         UpdatePolicyName = BookStorePermissions.Books.Edit;
         DeletePolicyName = BookStorePermissions.Books.Delete;
