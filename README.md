@@ -822,4 +822,4 @@ public abstract class MudCrudPageBase<
 }
 ```
 
-This class will be used to replace `[AbpCrudPageBase](https://github.com/abpframework/abp/blob/dev/framework/src/Volo.Abp.BlazoriseUI/AbpCrudPageBase.cs)`.
+This class will be used to replace [AbpCrudPageBase](https://github.com/abpframework/abp/blob/dev/framework/src/Volo.Abp.BlazoriseUI/AbpCrudPageBase.cs).
