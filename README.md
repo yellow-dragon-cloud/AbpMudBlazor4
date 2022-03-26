@@ -294,6 +294,8 @@ namespace Acme.BookStore.Blazor.Pages
 }
 ```
 
+Change `BirthDate` property in `Author`, `AuthorDto`, `CreateAuthorDto`, `UpdateAuthorDto` from `DateTime` to `DateTime?`
+
 Now, the __Authors__ page should look like this:
 
 (screenshot)
