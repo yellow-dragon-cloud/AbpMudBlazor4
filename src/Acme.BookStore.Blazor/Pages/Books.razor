@@ -46,7 +46,7 @@
                         @if (HasDeletePermission)
                         {   
                             <MudIconButton Icon="fas fa-trash" 
-                                           OnClick="@(async (e) => {await DeleteEntityAsync(context);})"
+                                           OnClick="@(async (_) => { await DeleteEntityAsync(context);} )"
                                            Size="MudBlazor.Size.Small" />
                         }
                     </CellTemplate>
@@ -90,7 +90,7 @@
                  @ref="CreateForm">
             <MudSelect T="Guid" @bind-Value="NewEntity.AuthorId">
                 <MudSelectItem Value="@Guid.Empty">
-                    -
+                    @L["PickAnAuthor"]
                 </MudSelectItem>
                 @foreach (var author in authorList)
                 {
@@ -149,7 +149,7 @@
                  @ref="EditForm">
             <MudSelect T="Guid" @bind-Value="EditingEntity.AuthorId">
                 <MudSelectItem Value="@Guid.Empty">
-                    -
+                    @L["PickAnAuthor"]
                 </MudSelectItem>
                 @foreach (var author in authorList)
                 {
