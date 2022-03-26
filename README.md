@@ -298,7 +298,7 @@ Change type of `BirthDate` property in `Author`, `AuthorDto`, `CreateAuthorDto`,
 
 Now, the __Authors__ page should look like this:
 
-(screenshot)
+![image](images/screenshot4.png)
 
 ## 14. Define `MudCrudPageBase` Class
 
