@@ -24,6 +24,8 @@ Complete the __Web Application Development Tutorial__ in __ABP documentation__:
 
 ## 13. Update __Authors__ CRUD Page
 
+Add `@using MudBlazor` to `Acme.BookStore.Blazor/_Imports.razor`
+
 Update `Authors.razor` with the following content:
 
 ```razor
@@ -291,6 +293,8 @@ namespace Acme.BookStore.Blazor.Pages
     }
 }
 ```
+
+Change `BirthDate` property in `Author`, `AuthorDto`, `CreateAuthorDto`, `UpdateAuthorDto` from `DateTime` to `DateTime?`
 
 Now, the __Authors__ page should look like this:
 
