@@ -294,7 +294,7 @@ namespace Acme.BookStore.Blazor.Pages
 }
 ```
 
-Change `BirthDate` property in `Author`, `AuthorDto`, `CreateAuthorDto`, `UpdateAuthorDto` from `DateTime` to `DateTime?`
+Change type of `BirthDate` property in `Author`, `AuthorDto`, `CreateAuthorDto`, `UpdateAuthorDto` from `DateTime` to `DateTime?`
 
 Now, the __Authors__ page should look like this:
 
@@ -830,6 +830,8 @@ public abstract class MudCrudPageBase<
 This class will be used to replace [AbpCrudPageBase](https://github.com/abpframework/abp/blob/dev/framework/src/Volo.Abp.BlazoriseUI/AbpCrudPageBase.cs).
 
 ## 15. Update __Books__ CRUD Page
+
+Change type of `PublishDate` property in `Book`, `BookDto`, `CreateUpdateBookDto` from `DateTime` to `DateTime?`
 
 Update `Books.razor` with the following content:
 
