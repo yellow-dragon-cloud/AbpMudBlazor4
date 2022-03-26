@@ -295,7 +295,7 @@ Now, the __Authors__ page should look like this:
 
 (screenshot)
 
-## 14. Create `MudCrudPageBase`
+## 14. Define `MudCrudPageBase` Class
 
 Create `MudCrudPageBase.cs` file in `Volo.Abp.AspNetCore.Components.Web.BasicTheme/Components` and paste the following code:
 
