@@ -12,7 +12,7 @@
                 <h2>@L["Authors"]</h2>
             </Column>
             <Column ColumnSize="ColumnSize.Is6">
-                <Paragraph Alignment="TextAlignment.Right">
+                <Paragraph Alignment="TextAlignment.End">
                     @if (CanCreateAuthor)
                     {
                         <Button Color="Color.Primary"
@@ -75,7 +75,7 @@
 </Card>
 
 <Modal @ref="CreateAuthorModal">
-    <ModalBackdrop />
+    @*<ModalBackdrop />*@
     <ModalContent IsCentered="true">
         <Form>
             <ModalHeader>
@@ -127,7 +127,7 @@
 </Modal>
 
 <Modal @ref="EditAuthorModal">
-    <ModalBackdrop />
+    @*<ModalBackdrop />*@
     <ModalContent IsCentered="true">
         <Form>
             <ModalHeader>
