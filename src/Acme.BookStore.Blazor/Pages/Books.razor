@@ -88,7 +88,9 @@
     <DialogContent>
         <MudForm Model="@NewEntity"
                  @ref="CreateForm">
-            <MudSelect T="Guid" @bind-Value="NewEntity.AuthorId">
+            <MudSelect T="Guid" 
+                       @bind-Value="NewEntity.AuthorId"
+                       Label=@L["Author"]>
                 <MudSelectItem Value="@Guid.Empty">
                     @L["PickAnAuthor"]
                 </MudSelectItem>
@@ -104,7 +106,9 @@
                           Label=@L["Name"]
                           For=@(() => NewEntity.Name) />
             <br />
-            <MudSelect T="BookType" @bind-Value="NewEntity.Type">
+            <MudSelect T="BookType" 
+                       @bind-Value="NewEntity.Type"
+                       Label=@L["Type"]>
                 @foreach (BookType bookTypeValue in Enum.GetValues(typeof(BookType)))
                 {
                     <MudSelectItem Value="@bookTypeValue">
@@ -147,7 +151,9 @@
     <DialogContent>
         <MudForm Model="@EditingEntity"
                  @ref="EditForm">
-            <MudSelect T="Guid" @bind-Value="EditingEntity.AuthorId">
+            <MudSelect T="Guid" 
+                       @bind-Value="EditingEntity.AuthorId"
+                       Label=@L["Author"]>
                 <MudSelectItem Value="@Guid.Empty">
                     @L["PickAnAuthor"]
                 </MudSelectItem>
@@ -163,7 +169,9 @@
                           Label=@L["Name"]
                           For=@(() => EditingEntity.Name) />
             <br />
-            <MudSelect T="BookType" @bind-Value="EditingEntity.Type">
+            <MudSelect T="BookType" 
+                       @bind-Value="EditingEntity.Type"
+                       Label=@L["Type"]>
                 @foreach (BookType bookTypeValue in Enum.GetValues(typeof(BookType)))
                 {
                     <MudSelectItem Value="@bookTypeValue">
