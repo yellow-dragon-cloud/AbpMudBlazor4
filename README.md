@@ -67,13 +67,13 @@ Update `Authors.razor` with the following content:
                         @if (CanEditAuthor)
                         {
                             <MudIconButton Icon="fas fa-edit" 
-                                           OnClick="@((e) => {OpenEditAuthorModal(context);})"
+                                           OnClick="@((e) => {OpenEditAuthorModal(context.Item);})"
                                            Size="MudBlazor.Size.Small" />
                         }
                         @if (CanDeleteAuthor)
                         {   
                             <MudIconButton Icon="fas fa-trash" 
-                                           OnClick="@(async (e) => {await DeleteAuthorAsync(context);})"
+                                           OnClick="@(async (e) => {await DeleteAuthorAsync(context.Item);})"
                                            Size="MudBlazor.Size.Small" />
                         }
                     </CellTemplate>
@@ -85,7 +85,7 @@ Update `Authors.razor` with the following content:
                                   Field="@nameof(AuthorDto.BirthDate)"
                                   Title="@L["BirthDate"]">
                     <CellTemplate>
-                        @context.BirthDate?.ToShortDateString()
+                        @context.Item.BirthDate?.ToShortDateString()
                     </CellTemplate>
                 </MudBlazor.Column>
             </Columns>
@@ -878,13 +878,13 @@ Update `Books.razor` with the following content:
                         @if (HasUpdatePermission)
                         {
                             <MudIconButton Icon="fas fa-edit" 
-                                           OnClick="@(async (_) => { await OpenEditModalAsync(context); })"
+                                           OnClick="@(async (_) => { await OpenEditModalAsync(context.Item); })"
                                            Size="MudBlazor.Size.Small" />
                         }
                         @if (HasDeletePermission)
                         {   
                             <MudIconButton Icon="fas fa-trash" 
-                                           OnClick="@(async (_) => { await DeleteEntityAsync(context);} )"
+                                           OnClick="@(async (_) => { await DeleteEntityAsync(context.Item);} )"
                                            Size="MudBlazor.Size.Small" />
                         }
                     </CellTemplate>
@@ -896,7 +896,7 @@ Update `Books.razor` with the following content:
                                   Field="@nameof(BookDto.Type)"
                                   Title=@L["Type"]>
                     <CellTemplate>
-                        @L[$"Enum:BookType:{(int)context.Type}"]
+                        @L[$"Enum:BookType:{(int)context.Item.Type}"]
                     </CellTemplate>
                 </MudBlazor.Column>
                 <MudBlazor.Column T="BookDto"
@@ -906,8 +906,8 @@ Update `Books.razor` with the following content:
                                   Field="@nameof(BookDto.PublishDate)"
                                   Title=@L["PublishDate"]>
                     <CellTemplate>
-                        @if (@context.PublishDate.HasValue)
-                            @context.PublishDate.Value.ToShortDateString()
+                        @if (@context.Item.PublishDate.HasValue)
+                            @context.Item.PublishDate.Value.ToShortDateString()
                     </CellTemplate>
                 </MudBlazor.Column>
                 <MudBlazor.Column T="BookDto"
@@ -926,7 +926,9 @@ Update `Books.razor` with the following content:
     <DialogContent>
         <MudForm Model="@NewEntity"
                  @ref="CreateForm">
-            <MudSelect T="Guid" @bind-Value="NewEntity.AuthorId">
+            <MudSelect T="Guid" 
+                       @bind-Value="NewEntity.AuthorId"
+                       Label=@L["Author"]>
                 <MudSelectItem Value="@Guid.Empty">
                     @L["PickAnAuthor"]
                 </MudSelectItem>
@@ -942,7 +944,9 @@ Update `Books.razor` with the following content:
                           Label=@L["Name"]
                           For=@(() => NewEntity.Name) />
             <br />
-            <MudSelect T="BookType" @bind-Value="NewEntity.Type">
+            <MudSelect T="BookType" 
+                       @bind-Value="NewEntity.Type"
+                       Label=@L["Type"]>
                 @foreach (BookType bookTypeValue in Enum.GetValues(typeof(BookType)))
                 {
                     <MudSelectItem Value="@bookTypeValue">
@@ -985,7 +989,9 @@ Update `Books.razor` with the following content:
     <DialogContent>
         <MudForm Model="@EditingEntity"
                  @ref="EditForm">
-            <MudSelect T="Guid" @bind-Value="EditingEntity.AuthorId">
+            <MudSelect T="Guid" 
+                       @bind-Value="EditingEntity.AuthorId"
+                       Label=@L["Author"]>
                 <MudSelectItem Value="@Guid.Empty">
                     @L["PickAnAuthor"]
                 </MudSelectItem>
@@ -1001,7 +1007,9 @@ Update `Books.razor` with the following content:
                           Label=@L["Name"]
                           For=@(() => EditingEntity.Name) />
             <br />
-            <MudSelect T="BookType" @bind-Value="EditingEntity.Type">
+            <MudSelect T="BookType" 
+                       @bind-Value="EditingEntity.Type"
+                       Label=@L["Type"]>
                 @foreach (BookType bookTypeValue in Enum.GetValues(typeof(BookType)))
                 {
                     <MudSelectItem Value="@bookTypeValue">
