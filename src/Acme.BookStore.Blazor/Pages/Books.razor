@@ -40,13 +40,13 @@
                         @if (HasUpdatePermission)
                         {
                             <MudIconButton Icon="fas fa-edit" 
-                                           OnClick="@(async (_) => { await OpenEditModalAsync(context); })"
+                                           OnClick="@(async (_) => { await OpenEditModalAsync(context.Item); })"
                                            Size="MudBlazor.Size.Small" />
                         }
                         @if (HasDeletePermission)
                         {   
                             <MudIconButton Icon="fas fa-trash" 
-                                           OnClick="@(async (_) => { await DeleteEntityAsync(context);} )"
+                                           OnClick="@(async (_) => { await DeleteEntityAsync(context.Item);} )"
                                            Size="MudBlazor.Size.Small" />
                         }
                     </CellTemplate>
@@ -58,7 +58,7 @@
                                   Field="@nameof(BookDto.Type)"
                                   Title=@L["Type"]>
                     <CellTemplate>
-                        @L[$"Enum:BookType:{(int)context.Type}"]
+                        @L[$"Enum:BookType:{(int)context.Item.Type}"]
                     </CellTemplate>
                 </MudBlazor.Column>
                 <MudBlazor.Column T="BookDto"
@@ -68,8 +68,8 @@
                                   Field="@nameof(BookDto.PublishDate)"
                                   Title=@L["PublishDate"]>
                     <CellTemplate>
-                        @if (@context.PublishDate.HasValue)
-                            @context.PublishDate.Value.ToShortDateString()
+                        @if (@context.Item.PublishDate.HasValue)
+                            @context.Item.PublishDate.Value.ToShortDateString()
                     </CellTemplate>
                 </MudBlazor.Column>
                 <MudBlazor.Column T="BookDto"
