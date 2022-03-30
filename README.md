@@ -37,61 +37,55 @@ Update `Authors.razor` with the following content:
 @inject IAuthorAppService AuthorAppService
 @inject AbpBlazorMessageLocalizerHelper<BookStoreResource> LH
 
-<MudCard Elevation="8">
-    <MudCardHeader>
-        <MudGrid>
-            <MudItem>
-                <MudText Typo="Typo.h5">@L["Authors"]</MudText>
-            </MudItem>
-            <MudSpacer />
-            <MudItem>
-                <MudButton Color="MudBlazor.Color.Primary"
-                           Variant="Variant.Outlined"
-                           Disabled="!CanCreateAuthor"
-                           OnClick="OpenCreateAuthorModal">
-                    @L["NewAuthor"]
-                </MudButton>
-            </MudItem>
-        </MudGrid>
-    </MudCardHeader>
-    <MudCardContent>
-        <MudDataGrid T="AuthorDto"
-                     @ref="_authorList"
-                     Striped="true"
-                     ServerData="LoadServerData">
-            <Columns>
-                <MudBlazor.Column T="AuthorDto"
-                                  Field="@nameof(AuthorDto.Id)"
-                                  Title="@L["Actions"]">
-                    <CellTemplate>
-                        @if (CanEditAuthor)
-                        {
-                            <MudIconButton Icon="fas fa-edit" 
-                                           OnClick="@((e) => {OpenEditAuthorModal(context.Item);})"
-                                           Size="MudBlazor.Size.Small" />
-                        }
-                        @if (CanDeleteAuthor)
-                        {   
-                            <MudIconButton Icon="fas fa-trash" 
-                                           OnClick="@(async (e) => {await DeleteAuthorAsync(context.Item);})"
-                                           Size="MudBlazor.Size.Small" />
-                        }
-                    </CellTemplate>
-                </MudBlazor.Column>
-                <MudBlazor.Column T="AuthorDto"
-                                  Field="@nameof(AuthorDto.Name)"
-                                  Title="@L["Name"]" />
-                <MudBlazor.Column T="AuthorDto"
-                                  Field="@nameof(AuthorDto.BirthDate)"
-                                  Title="@L["BirthDate"]">
-                    <CellTemplate>
-                        @context.Item.BirthDate?.ToShortDateString()
-                    </CellTemplate>
-                </MudBlazor.Column>
-            </Columns>
-        </MudDataGrid>
-    </MudCardContent>
-</MudCard>
+<MudDataGrid T="AuthorDto"
+             @ref="_authorList"
+             Elevation="8"
+             Hideable="true"
+             Striped="true"
+             ServerData="LoadServerData">
+<ToolBarContent>
+    <MudText Typo="Typo.h5">@L["Authors"]</MudText>
+    <MudSpacer />
+    <MudButton Color="MudBlazor.Color.Primary"
+               Variant="Variant.Outlined"
+               Disabled="!CanCreateAuthor"
+               OnClick="OpenCreateAuthorModal">
+        @L["NewAuthor"]
+    </MudButton>
+</ToolBarContent>
+<Columns>
+    <MudBlazor.Column T="AuthorDto"
+                      Field="@nameof(AuthorDto.Id)"
+                      Hideable="false"
+                      Title="@L["Actions"]">
+        <CellTemplate>
+            @if (CanEditAuthor)
+            {
+                <MudIconButton Icon="fas fa-edit" 
+                               OnClick="@((e) => {OpenEditAuthorModal(context.Item);})"
+                               Size="MudBlazor.Size.Small" />
+            }
+            @if (CanDeleteAuthor)
+            {   
+                <MudIconButton Icon="fas fa-trash" 
+                               OnClick="@(async (e) => {await DeleteAuthorAsync(context.Item);})"
+                               Size="MudBlazor.Size.Small" />
+            }
+        </CellTemplate>
+    </MudBlazor.Column>
+    <MudBlazor.Column T="AuthorDto"
+                      Field="@nameof(AuthorDto.Name)"
+                      Hideable="false"
+                      Title="@L["Name"]" />
+    <MudBlazor.Column T="AuthorDto"
+                      Field="@nameof(AuthorDto.BirthDate)"
+                      Title="@L["BirthDate"]">
+        <CellTemplate>
+            @context.Item.BirthDate?.ToShortDateString()
+        </CellTemplate>
+    </MudBlazor.Column>
+</Columns>
+</MudDataGrid>
 
 <MudDialog @bind-IsVisible="_createAuthorDialogVisible">
     <TitleContent>
@@ -848,75 +842,69 @@ Update `Books.razor` with the following content:
 @inherits MudCrudPageBase<IBookAppService, BookDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateBookDto>
 @inject AbpBlazorMessageLocalizerHelper<BookStoreResource> LH
 
-<MudCard Elevation="8">
-    <MudCardHeader>
-        <MudGrid>
-            <MudItem>
-                <MudText Typo="Typo.h5">@L["Books"]</MudText>
-            </MudItem>
-            <MudSpacer />
-            <MudItem>
-                <MudButton Color="MudBlazor.Color.Primary"
-                           Variant="Variant.Outlined"
-                           Disabled="!HasCreatePermission"
-                           OnClick="OpenCreateModalAsync">
-                    @L["NewBook"]
-                </MudButton>
-            </MudItem>
-        </MudGrid>
-    </MudCardHeader>
-    <MudCardContent>
-        <MudDataGrid T="BookDto"
-                     @ref="DataGrid"
-                     Striped="true"
-                     ServerData="LoadServerData">
-            <Columns>
-                <MudBlazor.Column T="BookDto"
-                                  Field="@nameof(BookDto.Id)"
-                                  Title="@L["Actions"]">
-                    <CellTemplate>
-                        @if (HasUpdatePermission)
-                        {
-                            <MudIconButton Icon="fas fa-edit" 
-                                           OnClick="@(async (_) => { await OpenEditModalAsync(context.Item); })"
-                                           Size="MudBlazor.Size.Small" />
-                        }
-                        @if (HasDeletePermission)
-                        {   
-                            <MudIconButton Icon="fas fa-trash" 
-                                           OnClick="@(async (_) => { await DeleteEntityAsync(context.Item);} )"
-                                           Size="MudBlazor.Size.Small" />
-                        }
-                    </CellTemplate>
-                </MudBlazor.Column>
-                <MudBlazor.Column T="BookDto"
-                                  Field="@nameof(BookDto.Name)"
-                                  Title=@L["Name"] />
-                <MudBlazor.Column T="BookDto"
-                                  Field="@nameof(BookDto.Type)"
-                                  Title=@L["Type"]>
-                    <CellTemplate>
-                        @L[$"Enum:BookType:{(int)context.Item.Type}"]
-                    </CellTemplate>
-                </MudBlazor.Column>
-                <MudBlazor.Column T="BookDto"
-                                  Field="@nameof(BookDto.AuthorName)"
-                                  Title=@L["AuthorName"] />
-                <MudBlazor.Column T="BookDto"
-                                  Field="@nameof(BookDto.PublishDate)"
-                                  Title=@L["PublishDate"]>
-                    <CellTemplate>
-                        @if (@context.Item.PublishDate.HasValue)
-                            @context.Item.PublishDate.Value.ToShortDateString()
-                    </CellTemplate>
-                </MudBlazor.Column>
-                <MudBlazor.Column T="BookDto"
-                                  Field="@nameof(BookDto.Price)"
-                                  Title=@L["Price"] />
-            </Columns>
-        </MudDataGrid>
-    </MudCardContent>
-</MudCard>
+<MudDataGrid T="BookDto"
+             @ref="DataGrid"
+             Striped="true"
+             Hideable="true"
+             Elevation="8"
+             ServerData="LoadServerData">
+<ToolBarContent>
+    <MudText Typo="Typo.h5">@L["Books"]</MudText>
+    <MudSpacer />
+    <MudButton Color="MudBlazor.Color.Primary"
+               Variant="Variant.Outlined"
+               Disabled="!HasCreatePermission"
+               OnClick="OpenCreateModalAsync">
+        @L["NewBook"]
+    </MudButton>
+</ToolBarContent>
+<Columns>
+    <MudBlazor.Column T="BookDto"
+                      Field="@nameof(BookDto.Id)"
+                      Hideable="false"
+                      Title="@L["Actions"]">
+        <CellTemplate>
+            @if (HasUpdatePermission)
+            {
+                <MudIconButton Icon="fas fa-edit" 
+                               OnClick="@(async (_) => { await OpenEditModalAsync(context.Item); })"
+                               Size="MudBlazor.Size.Small" />
+            }
+            @if (HasDeletePermission)
+            {   
+                <MudIconButton Icon="fas fa-trash" 
+                               OnClick="@(async (_) => { await DeleteEntityAsync(context.Item);} )"
+                               Size="MudBlazor.Size.Small" />
+            }
+        </CellTemplate>
+    </MudBlazor.Column>
+    <MudBlazor.Column T="BookDto"
+                      Field="@nameof(BookDto.Name)"
+                      Hideable="false"
+                      Title=@L["Name"] />
+    <MudBlazor.Column T="BookDto"
+                      Field="@nameof(BookDto.Type)"
+                      Title=@L["Type"]>
+        <CellTemplate>
+            @L[$"Enum:BookType:{(int)context.Item.Type}"]
+        </CellTemplate>
+    </MudBlazor.Column>
+    <MudBlazor.Column T="BookDto"
+                      Field="@nameof(BookDto.AuthorName)"
+                      Title=@L["AuthorName"] />
+    <MudBlazor.Column T="BookDto"
+                      Field="@nameof(BookDto.PublishDate)"
+                      Title=@L["PublishDate"]>
+        <CellTemplate>
+            @if (@context.Item.PublishDate.HasValue)
+                @context.Item.PublishDate.Value.ToShortDateString()
+        </CellTemplate>
+    </MudBlazor.Column>
+    <MudBlazor.Column T="BookDto"
+                      Field="@nameof(BookDto.Price)"
+                      Title=@L["Price"] />
+</Columns>
+</MudDataGrid>
 
 <MudDialog @bind-IsVisible="CreateDialogVisible" 
            Options="DialogOptions">
