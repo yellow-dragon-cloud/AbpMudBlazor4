@@ -1057,4 +1057,5 @@ Update `Books.razor` with the following content:
 
 ## Next
 
-Update built-in Blazor pages to use MudBlazor components.
+[MudBlazor Theme in ABP Blazor WebAssembly FINAL](https://github.com/yellow-dragon-cloud/AbpMudBlazorFinal)
+
